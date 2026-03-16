@@ -39,6 +39,24 @@
       --shadow-glow: 0 0 60px rgba(124,92,252,0.15);
     }
 
+    [data-theme="light"] {
+      --bg-primary: #f8f9fc;
+      --bg-secondary: #eef0f5;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0f1f6;
+      --text-primary: #1a1a2e;
+      --text-secondary: #555570;
+      --accent-1: #6040e0;
+      --accent-2: #00a882;
+      --accent-3: #e0457b;
+      --accent-4: #c9a500;
+      --gradient-hero: linear-gradient(135deg, #6040e0 0%, #00a882 50%, #e0457b 100%);
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(96,64,224,0.3);
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-glow: 0 0 40px rgba(96,64,224,0.08);
+    }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -47,17 +65,19 @@
       color: var(--text-primary);
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ===== NAV ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
       background: rgba(10,10,15,0.8);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
       transition: all 0.3s;
     }
+    [data-theme="light"] nav { background: rgba(248,249,252,0.85); }
     .nav-inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
@@ -74,6 +94,15 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text-primary); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-toggle {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 0.4rem 0.6rem; border-radius: 8px;
+      font-size: 0.8rem; cursor: pointer; transition: all 0.2s; line-height: 1;
+    }
+    .nav-toggle:hover { color: var(--text-primary); background: rgba(255,255,255,0.1); }
+    [data-theme="light"] .nav-toggle { background: rgba(0,0,0,0.04); }
+    [data-theme="light"] .nav-toggle:hover { background: rgba(0,0,0,0.08); }
     .nav-cta {
       padding: 0.5rem 1.25rem; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
       background: var(--accent-1); color: white; text-decoration: none;
@@ -144,6 +173,8 @@
       border: 1px solid var(--border);
     }
     .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--border-hover); }
+    [data-theme="light"] .btn-secondary { background: rgba(0,0,0,0.03); }
+    [data-theme="light"] .btn-secondary:hover { background: rgba(0,0,0,0.06); }
     .hero-stats {
       display: flex; gap: 3rem; justify-content: center; margin-top: 4rem;
       padding-top: 3rem; border-top: 1px solid var(--border);
@@ -182,6 +213,12 @@
     .flow-code .cmd { color: var(--accent-1); font-weight: 600; }
     .flow-code .arrow { color: var(--accent-2); }
     .flow-code .comment { color: #555; }
+    [data-theme="light"] .flow-code .comment { color: #999; }
+    [data-theme="light"] .install-code .comment { color: #999; }
+    [data-theme="light"] .install-code { background: rgba(0,0,0,0.03); }
+    [data-theme="light"] .arch-box .border-char { color: #bbb; }
+    [data-theme="light"] .excuse-bad { background: rgba(224,69,123,0.08); }
+    [data-theme="light"] .hero::before { opacity: 0.6; }
 
     /* ===== FEATURES GRID ===== */
     .features-grid {
@@ -269,6 +306,8 @@
     .arch-box .tier { color: var(--accent-1); font-weight: 600; }
     .arch-box .desc { color: var(--accent-2); }
     .arch-box .border-char { color: #444; }
+    [data-theme="light"] .copy-btn { background: rgba(0,0,0,0.04); }
+    [data-theme="light"] .copy-btn:hover { background: rgba(0,0,0,0.08); }
 
     /* ===== INSTALL ===== */
     .install-tabs {
@@ -350,13 +389,17 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">AWF</a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#workflows">Workflows</a></li>
-      <li><a href="#anti-rat">Anti-Rationalization</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#install">Install</a></li>
+      <li><a href="#features" data-i18n="nav.features">Features</a></li>
+      <li><a href="#workflows" data-i18n="nav.workflows">Workflows</a></li>
+      <li><a href="#anti-rat" data-i18n="nav.antirat">Anti-Rationalization</a></li>
+      <li><a href="#architecture" data-i18n="nav.arch">Architecture</a></li>
+      <li><a href="#install" data-i18n="nav.install">Install</a></li>
     </ul>
-    <a href="https://github.com/devtdq1701/awf" class="nav-cta" target="_blank">GitHub</a>
+    <div class="nav-right">
+      <button class="nav-toggle" id="langToggle" onclick="toggleLang()" title="Switch language">EN</button>
+      <button class="nav-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">&#x263E;</button>
+      <a href="https://github.com/devtdq1701/awf" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+    </div>
   </div>
 </nav>
 
@@ -367,31 +410,31 @@
       <span class="dot"></span>
       <span>v4.0+ &mdash; Open Source</span>
     </div>
-    <h1>
+    <h1 data-i18n-html="hero.title">
       Transform AI into a<br>
       <span class="gradient">Development Team</span>
     </h1>
-    <p>AWF is a prompt engineering framework that turns your AI coding assistant into specialized personas &mdash; PM, Developer, Designer, Detective &mdash; each with structured workflows and safety guardrails.</p>
+    <p data-i18n="hero.desc">AWF is a prompt engineering framework that turns your AI coding assistant into specialized personas &mdash; PM, Developer, Designer, Detective &mdash; each with structured workflows and safety guardrails.</p>
     <div class="hero-actions">
-      <a href="#install" class="btn btn-primary">Get Started</a>
-      <a href="https://github.com/devtdq1701/awf" class="btn btn-secondary" target="_blank">View on GitHub</a>
+      <a href="#install" class="btn btn-primary" data-i18n="hero.cta">Get Started</a>
+      <a href="https://github.com/devtdq1701/awf" class="btn btn-secondary" target="_blank" rel="noopener" data-i18n="hero.github">View on GitHub</a>
     </div>
     <div class="hero-stats">
       <div class="stat">
         <div class="stat-num">22</div>
-        <div class="stat-label">Workflows</div>
+        <div class="stat-label" data-i18n="hero.stat.wf">Workflows</div>
       </div>
       <div class="stat">
         <div class="stat-num">8</div>
-        <div class="stat-label">Built-in Skills</div>
+        <div class="stat-label" data-i18n="hero.stat.sk">Built-in Skills</div>
       </div>
       <div class="stat">
         <div class="stat-num">7</div>
-        <div class="stat-label">Personas</div>
+        <div class="stat-label" data-i18n="hero.stat.ps">Personas</div>
       </div>
       <div class="stat">
         <div class="stat-num">5</div>
-        <div class="stat-label">Shared Protocols</div>
+        <div class="stat-label" data-i18n="hero.stat.sp">Shared Protocols</div>
       </div>
     </div>
   </div>
@@ -400,9 +443,9 @@
 <!-- FLOW -->
 <section id="flow">
   <div class="container fade-in">
-    <div class="section-label">Developer Cycle</div>
-    <div class="section-title">From Idea to Production</div>
-    <div class="section-desc">Every stage of development has a dedicated workflow with its own expert persona.</div>
+    <div class="section-label" data-i18n="flow.label">Developer Cycle</div>
+    <div class="section-title" data-i18n="flow.title">From Idea to Production</div>
+    <div class="section-desc" data-i18n="flow.desc">Every stage of development has a dedicated workflow with its own expert persona.</div>
     <div class="flow-visual">
       <div class="flow-code"><span class="comment"># New Project</span>
 <span class="cmd">/init</span> <span class="arrow">&rarr;</span> <span class="cmd">/brainstorm</span> <span class="arrow">&rarr;</span> <span class="cmd">/plan</span> <span class="arrow">&rarr;</span> <span class="cmd">/design</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span>
@@ -422,9 +465,9 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="container fade-in">
-    <div class="section-label">Key Features</div>
-    <div class="section-title">What Makes AWF Different</div>
-    <div class="section-desc">Not just prompts &mdash; a complete engineering system with process enforcement.</div>
+    <div class="section-label" data-i18n="feat.label">Key Features</div>
+    <div class="section-title" data-i18n="feat.title">What Makes AWF Different</div>
+    <div class="section-desc" data-i18n="feat.desc">Not just prompts &mdash; a complete engineering system with process enforcement.</div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon" style="background: rgba(124,92,252,0.1);">&#x1F3AD;</div>
@@ -463,9 +506,9 @@
 <!-- WORKFLOWS -->
 <section id="workflows" class="workflows-section">
   <div class="container fade-in">
-    <div class="section-label">Complete Coverage</div>
-    <div class="section-title">22 Workflows</div>
-    <div class="section-desc">Every stage of software development covered with structured processes.</div>
+    <div class="section-label" data-i18n="wf.label">Complete Coverage</div>
+    <div class="section-title" data-i18n="wf.title">22 Workflows</div>
+    <div class="section-desc" data-i18n="wf.desc">Every stage of software development covered with structured processes.</div>
 
     <div class="workflow-group">
       <h3>Development Lifecycle</h3>
@@ -510,9 +553,9 @@
 <!-- ANTI-RATIONALIZATION -->
 <section id="anti-rat">
   <div class="container fade-in">
-    <div class="section-label">Process Enforcement</div>
-    <div class="section-title">Anti-Rationalization</div>
-    <div class="section-desc">Inspired by <a href="https://github.com/obra/superpowers" target="_blank" style="color: var(--accent-1);">Superpowers</a>. Common AI excuses are explicitly blocked across 7 workflows.</div>
+    <div class="section-label" data-i18n="ar.label">Process Enforcement</div>
+    <div class="section-title" data-i18n="ar.title">Anti-Rationalization</div>
+    <div class="section-desc" data-i18n-html="ar.desc">Inspired by <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener" style="color: var(--accent-1);">Superpowers</a>. Common AI excuses are explicitly blocked across 7 workflows.</div>
     <div class="anti-rat-grid">
       <div class="excuse-card">
         <div class="excuse-icon excuse-bad">&#x274C;</div>
@@ -563,9 +606,9 @@
 <!-- ARCHITECTURE -->
 <section id="architecture" class="workflows-section">
   <div class="container fade-in">
-    <div class="section-label">Under the Hood</div>
-    <div class="section-title">3-Tier Architecture</div>
-    <div class="section-desc">Agent, Workflow, and Skill layers work together seamlessly.</div>
+    <div class="section-label" data-i18n="arch.label">Under the Hood</div>
+    <div class="section-title" data-i18n="arch.title">3-Tier Architecture</div>
+    <div class="section-desc" data-i18n="arch.desc">Agent, Workflow, and Skill layers work together seamlessly.</div>
     <div class="arch-box"><span class="border-char">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span>
 <span class="border-char">&#x2502;</span>  <span class="tier">Tier 1: Agent Layer</span>          <span class="desc">&larr; GEMINI.md (global rules)</span>  <span class="border-char">&#x2502;</span>
 <span class="border-char">&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</span>
@@ -581,9 +624,9 @@
 <!-- INSTALL -->
 <section id="install">
   <div class="container fade-in">
-    <div class="section-label">Get Started</div>
-    <div class="section-title">Installation</div>
-    <div class="section-desc">One command. Auto-creates symlinks for <code style="color:var(--accent-2)">.agent/</code> and <code style="color:var(--accent-2)">.agents/</code> directories for multi-agent IDE compatibility.</div>
+    <div class="section-label" data-i18n="inst.label">Get Started</div>
+    <div class="section-title" data-i18n="inst.title">Installation</div>
+    <div class="section-desc" data-i18n-html="inst.desc">One command. Auto-creates symlinks for <code style="color:var(--accent-2)">.agent/</code> and <code style="color:var(--accent-2)">.agents/</code> directories for multi-agent IDE compatibility.</div>
 
     <div class="install-tabs">
       <div class="install-tab active" onclick="switchTab('global')">Global Install<span class="install-tab-label">recommended</span></div>
@@ -653,18 +696,104 @@
 </footer>
 
 <script>
-  // Intersection Observer for fade-in
+  // ===== i18n translations =====
+  const i18n = {
+    en: {
+      'nav.features': 'Features', 'nav.workflows': 'Workflows',
+      'nav.antirat': 'Anti-Rationalization', 'nav.arch': 'Architecture', 'nav.install': 'Install',
+      'hero.title': 'Transform AI into a<br><span class="gradient">Development Team</span>',
+      'hero.desc': 'AWF is a prompt engineering framework that turns your AI coding assistant into specialized personas \u2014 PM, Developer, Designer, Detective \u2014 each with structured workflows and safety guardrails.',
+      'hero.cta': 'Get Started', 'hero.github': 'View on GitHub',
+      'hero.stat.wf': 'Workflows', 'hero.stat.sk': 'Built-in Skills',
+      'hero.stat.ps': 'Personas', 'hero.stat.sp': 'Shared Protocols',
+      'flow.label': 'Developer Cycle', 'flow.title': 'From Idea to Production',
+      'flow.desc': 'Every stage of development has a dedicated workflow with its own expert persona.',
+      'feat.label': 'Key Features', 'feat.title': 'What Makes AWF Different',
+      'feat.desc': 'Not just prompts \u2014 a complete engineering system with process enforcement.',
+      'wf.label': 'Complete Coverage', 'wf.title': '22 Workflows',
+      'wf.desc': 'Every stage of software development covered with structured processes.',
+      'ar.label': 'Process Enforcement', 'ar.title': 'Anti-Rationalization',
+      'ar.desc': 'Inspired by <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener" style="color:var(--accent-1)">Superpowers</a>. Common AI excuses are explicitly blocked across 7 workflows.',
+      'arch.label': 'Under the Hood', 'arch.title': '3-Tier Architecture',
+      'arch.desc': 'Agent, Workflow, and Skill layers work together seamlessly.',
+      'inst.label': 'Get Started', 'inst.title': 'Installation',
+      'inst.desc': 'One command. Auto-creates symlinks for <code style="color:var(--accent-2)">.agent/</code> and <code style="color:var(--accent-2)">.agents/</code> directories for multi-agent IDE compatibility.',
+      'footer.text': 'AWF is open source under MIT License.',
+      'footer.tagline': 'Your dreams, our engineering.'
+    },
+    vi: {
+      'nav.features': 'T\u00ednh n\u0103ng', 'nav.workflows': 'Quy tr\u00ecnh',
+      'nav.antirat': 'Ch\u1ed1ng bi\u1ec7n minh', 'nav.arch': 'Ki\u1ebfn tr\u00fac', 'nav.install': 'C\u00e0i \u0111\u1eb7t',
+      'hero.title': 'Bi\u1ebfn AI th\u00e0nh<br><span class="gradient">\u0110\u1ed9i ng\u0169 ph\u00e1t tri\u1ec3n</span>',
+      'hero.desc': 'AWF l\u00e0 framework prompt engineering bi\u1ebfn tr\u1ee3 l\u00fd AI th\u00e0nh c\u00e1c chuy\u00ean gia \u2014 PM, Developer, Designer, Detective \u2014 m\u1ed7i ng\u01b0\u1eddi c\u00f3 quy tr\u00ecnh v\u00e0 r\u00e0o ch\u1eafn an to\u00e0n ri\u00eang.',
+      'hero.cta': 'B\u1eaft \u0111\u1ea7u', 'hero.github': 'Xem tr\u00ean GitHub',
+      'hero.stat.wf': 'Quy tr\u00ecnh', 'hero.stat.sk': 'K\u1ef9 n\u0103ng',
+      'hero.stat.ps': 'Chuy\u00ean gia', 'hero.stat.sp': 'Giao th\u1ee9c chung',
+      'flow.label': 'Chu tr\u00ecnh ph\u00e1t tri\u1ec3n', 'flow.title': 'T\u1eeb \u00fd t\u01b0\u1edfng \u0111\u1ebfn s\u1ea3n ph\u1ea9m',
+      'flow.desc': 'M\u1ed7i giai \u0111o\u1ea1n ph\u00e1t tri\u1ec3n \u0111\u1ec1u c\u00f3 quy tr\u00ecnh chuy\u00ean bi\u1ec7t v\u1edbi chuy\u00ean gia ri\u00eang.',
+      'feat.label': 'T\u00ednh n\u0103ng ch\u00ednh', 'feat.title': '\u0110i\u1ec3m kh\u00e1c bi\u1ec7t c\u1ee7a AWF',
+      'feat.desc': 'Kh\u00f4ng ch\u1ec9 l\u00e0 prompt \u2014 m\u00e0 l\u00e0 h\u1ec7 th\u1ed1ng k\u1ef9 thu\u1eadt ho\u00e0n ch\u1ec9nh v\u1edbi c\u01a1 ch\u1ebf gi\u00e1m s\u00e1t quy tr\u00ecnh.',
+      'wf.label': 'Bao ph\u1ee7 to\u00e0n di\u1ec7n', 'wf.title': '22 Quy tr\u00ecnh',
+      'wf.desc': 'M\u1ecdi giai \u0111o\u1ea1n ph\u00e1t tri\u1ec3n ph\u1ea7n m\u1ec1m \u0111\u1ec1u \u0111\u01b0\u1ee3c \u0111\u1ecbnh ngh\u0129a quy tr\u00ecnh r\u00f5 r\u00e0ng.',
+      'ar.label': 'Gi\u00e1m s\u00e1t quy tr\u00ecnh', 'ar.title': 'Ch\u1ed1ng bi\u1ec7n minh',
+      'ar.desc': 'L\u1ea5y c\u1ea3m h\u1ee9ng t\u1eeb <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener" style="color:var(--accent-1)">Superpowers</a>. Nh\u1eefng l\u00fd do bi\u1ec7n minh ph\u1ed5 bi\u1ebfn c\u1ee7a AI b\u1ecb ch\u1eb7n trong 7 quy tr\u00ecnh.',
+      'arch.label': 'B\u00ean trong', 'arch.title': 'Ki\u1ebfn tr\u00fac 3 t\u1ea7ng',
+      'arch.desc': 'Agent, Workflow v\u00e0 Skill ph\u1ed1i h\u1ee3p li\u1ec1n m\u1ea1ch.',
+      'inst.label': 'B\u1eaft \u0111\u1ea7u', 'inst.title': 'C\u00e0i \u0111\u1eb7t',
+      'inst.desc': 'M\u1ed9t l\u1ec7nh duy nh\u1ea5t. T\u1ef1 \u0111\u1ed9ng t\u1ea1o symlink cho <code style="color:var(--accent-2)">.agent/</code> v\u00e0 <code style="color:var(--accent-2)">.agents/</code> t\u01b0\u01a1ng th\u00edch \u0111a agent IDE.',
+      'footer.text': 'AWF l\u00e0 m\u00e3 ngu\u1ed3n m\u1edf theo gi\u1ea5y ph\u00e9p MIT.',
+      'footer.tagline': '\u01af\u1edbc m\u01a1 c\u1ee7a b\u1ea1n, k\u1ef9 thu\u1eadt c\u1ee7a ch\u00fang t\u00f4i.'
+    }
+  };
+
+  let currentLang = localStorage.getItem('awf-lang') || 'en';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('awf-lang', lang);
+    document.getElementById('langToggle').textContent = lang.toUpperCase();
+    document.documentElement.lang = lang;
+    const t = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key]) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key]) el.innerHTML = t[key];
+    });
+  }
+
+  function toggleLang() {
+    applyLang(currentLang === 'en' ? 'vi' : 'en');
+  }
+
+  // ===== Theme =====
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('awf-theme', theme);
+    document.getElementById('themeToggle').innerHTML = theme === 'dark' ? '&#x263E;' : '&#x2600;';
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  // Init
+  const savedTheme = localStorage.getItem('awf-theme') || 'dark';
+  applyTheme(savedTheme);
+  applyLang(currentLang);
+
+  // ===== Intersection Observer =====
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Tab switching
+  // ===== Tab switching =====
   function switchTab(tab) {
     document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.install-panel').forEach(p => p.classList.remove('active'));
@@ -672,7 +801,7 @@
     document.getElementById('tab-' + tab).classList.add('active');
   }
 
-  // Copy install script
+  // ===== Copy =====
   const installScripts = {
     global: `curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash`,
     project: `curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash -s -- --project`,
@@ -696,12 +825,6 @@ rm -rf /tmp/awf`
       setTimeout(() => btn.textContent = 'Copy', 2000);
     });
   }
-
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.borderBottomColor = window.scrollY > 50 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)';
-  });
 </script>
 </body>
 </html>
