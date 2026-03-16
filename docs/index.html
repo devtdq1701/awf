@@ -583,48 +583,59 @@
   <div class="container fade-in">
     <div class="section-label">Get Started</div>
     <div class="section-title">Installation</div>
-    <div class="section-desc">Choose Global (all projects) or Per-Project setup.</div>
+    <div class="section-desc">One command. Auto-creates symlinks for <code style="color:var(--accent-2)">.agent/</code> and <code style="color:var(--accent-2)">.agents/</code> directories for multi-agent IDE compatibility.</div>
 
     <div class="install-tabs">
       <div class="install-tab active" onclick="switchTab('global')">Global Install<span class="install-tab-label">recommended</span></div>
       <div class="install-tab" onclick="switchTab('project')">Per-Project</div>
+      <div class="install-tab" onclick="switchTab('manual')">Manual</div>
     </div>
 
     <div id="tab-global" class="install-panel active">
-      <p>Install AWF globally so <strong>every project</strong> benefits from all 22 workflows and 8 skills. Workflows, skills, schemas, and templates are installed to <code style="color:var(--accent-1)">~/.gemini/antigravity/</code>.</p>
+      <p>Install AWF globally so <strong>every project</strong> benefits. Installs to <code style="color:var(--accent-1)">~/.gemini/antigravity/</code> and auto-creates symlinks in <code style="color:var(--accent-2)">~/.agent/</code> and <code style="color:var(--accent-2)">~/.agents/</code>.</p>
       <div class="install-code">
         <button class="copy-btn" onclick="copyCode('global')">Copy</button>
-<span class="comment"># Clone AWF</span>
-<span class="cmd-text">git clone https://github.com/devtdq1701/awf.git /tmp/awf-install</span>
-
-<span class="comment"># Install globally</span>
-<span class="cmd-text">mkdir -p ~/.gemini/antigravity</span>
-<span class="cmd-text">cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows</span>
-<span class="cmd-text">cp -r /tmp/awf-install/skills    ~/.gemini/antigravity/skills</span>
-<span class="cmd-text">cp -r /tmp/awf-install/schemas   ~/.gemini/antigravity/schemas</span>
-<span class="cmd-text">cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates</span>
-
-<span class="comment"># Clean up</span>
-<span class="cmd-text">rm -rf /tmp/awf-install</span>
+<span class="cmd-text">curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash</span>
       </div>
+      <p style="margin-top: 1rem; font-size: 0.8rem;">
+        <span style="color:var(--accent-2)">Creates:</span> <code>~/.gemini/antigravity/{global_workflows,skills,schemas,templates}</code><br>
+        <span style="color:var(--accent-2)">Symlinks:</span> <code>~/.agent/skills/awf</code>, <code>~/.agents/skills/awf</code> &rarr; primary
+      </p>
     </div>
 
     <div id="tab-project" class="install-panel">
-      <p>Install workflows into a <strong>single project</strong> only. Useful for team-shared repos where you want workflows versioned alongside code. Place them in your project's <code style="color:var(--accent-1)">.gemini/</code> directory.</p>
+      <p>Install into <strong>current project only</strong>. Useful for team repos where workflows are versioned alongside code. Installs to <code style="color:var(--accent-1)">.gemini/</code> and symlinks <code style="color:var(--accent-2)">.agent/</code>, <code style="color:var(--accent-2)">.agents/</code>.</p>
       <div class="install-code">
         <button class="copy-btn" onclick="copyCode('project')">Copy</button>
-<span class="comment"># Clone AWF</span>
-<span class="cmd-text">git clone https://github.com/devtdq1701/awf.git /tmp/awf-install</span>
+<span class="cmd-text">curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash -s -- --project</span>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.8rem;">
+        <span style="color:var(--accent-2)">Creates:</span> <code>.gemini/{workflows,skills,schemas,templates}</code><br>
+        <span style="color:var(--accent-2)">Symlinks:</span> <code>.agent/skills/awf</code>, <code>.agents/skills/awf</code> &rarr; primary
+      </p>
+    </div>
 
-<span class="comment"># Install into current project</span>
-<span class="cmd-text">mkdir -p .gemini</span>
-<span class="cmd-text">cp -r /tmp/awf-install/workflows .gemini/workflows</span>
-<span class="cmd-text">cp -r /tmp/awf-install/skills    .gemini/skills</span>
-<span class="cmd-text">cp -r /tmp/awf-install/schemas   .gemini/schemas</span>
-<span class="cmd-text">cp -r /tmp/awf-install/templates .gemini/templates</span>
+    <div id="tab-manual" class="install-panel">
+      <p>Manual clone &amp; copy if you prefer not to pipe to bash, or want to inspect the files first.</p>
+      <div class="install-code">
+        <button class="copy-btn" onclick="copyCode('manual')">Copy</button>
+<span class="comment"># Clone</span>
+<span class="cmd-text">git clone --depth 1 https://github.com/devtdq1701/awf.git /tmp/awf</span>
+
+<span class="comment"># Copy to Gemini (global)</span>
+<span class="cmd-text">mkdir -p ~/.gemini/antigravity</span>
+<span class="cmd-text">cp -r /tmp/awf/workflows ~/.gemini/antigravity/global_workflows</span>
+<span class="cmd-text">cp -r /tmp/awf/skills    ~/.gemini/antigravity/skills</span>
+<span class="cmd-text">cp -r /tmp/awf/schemas   ~/.gemini/antigravity/schemas</span>
+<span class="cmd-text">cp -r /tmp/awf/templates ~/.gemini/antigravity/templates</span>
+
+<span class="comment"># Symlink for other agent IDEs</span>
+<span class="cmd-text">mkdir -p ~/.agent/skills ~/.agents/skills</span>
+<span class="cmd-text">ln -sf ~/.gemini/antigravity/skills ~/.agent/skills/awf</span>
+<span class="cmd-text">ln -sf ~/.gemini/antigravity/skills ~/.agents/skills/awf</span>
 
 <span class="comment"># Clean up</span>
-<span class="cmd-text">rm -rf /tmp/awf-install</span>
+<span class="cmd-text">rm -rf /tmp/awf</span>
       </div>
     </div>
   </div>
@@ -663,20 +674,18 @@
 
   // Copy install script
   const installScripts = {
-    global: `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
+    global: `curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash`,
+    project: `curl -fsSL https://raw.githubusercontent.com/devtdq1701/awf/main/install.sh | bash -s -- --project`,
+    manual: `git clone --depth 1 https://github.com/devtdq1701/awf.git /tmp/awf
 mkdir -p ~/.gemini/antigravity
-cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows
-cp -r /tmp/awf-install/skills    ~/.gemini/antigravity/skills
-cp -r /tmp/awf-install/schemas   ~/.gemini/antigravity/schemas
-cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates
-rm -rf /tmp/awf-install`,
-    project: `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
-mkdir -p .gemini
-cp -r /tmp/awf-install/workflows .gemini/workflows
-cp -r /tmp/awf-install/skills    .gemini/skills
-cp -r /tmp/awf-install/schemas   .gemini/schemas
-cp -r /tmp/awf-install/templates .gemini/templates
-rm -rf /tmp/awf-install`
+cp -r /tmp/awf/workflows ~/.gemini/antigravity/global_workflows
+cp -r /tmp/awf/skills    ~/.gemini/antigravity/skills
+cp -r /tmp/awf/schemas   ~/.gemini/antigravity/schemas
+cp -r /tmp/awf/templates ~/.gemini/antigravity/templates
+mkdir -p ~/.agent/skills ~/.agents/skills
+ln -sf ~/.gemini/antigravity/skills ~/.agent/skills/awf
+ln -sf ~/.gemini/antigravity/skills ~/.agents/skills/awf
+rm -rf /tmp/awf`
   };
 
   function copyCode(type) {
