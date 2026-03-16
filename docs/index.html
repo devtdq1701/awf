@@ -271,19 +271,46 @@
     .arch-box .border-char { color: #444; }
 
     /* ===== INSTALL ===== */
+    .install-tabs {
+      display: flex; gap: 0; margin-top: 2rem; margin-bottom: 0;
+    }
+    .install-tab {
+      padding: 0.75rem 1.5rem; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-bottom: none; border-radius: 12px 12px 0 0;
+      color: var(--text-secondary); transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .install-tab.active {
+      background: var(--bg-card); color: var(--accent-1);
+      border-color: var(--border-hover); border-bottom: 2px solid var(--bg-card);
+      position: relative; z-index: 2;
+    }
+    .install-tab:not(.active):hover { color: var(--text-primary); }
+    .install-tab-label { font-size: 0.7rem; color: var(--text-secondary); font-weight: 400; margin-left: 0.5rem; }
+    .install-panel {
+      display: none;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 0 12px 12px 12px; padding: 2rem; position: relative;
+      margin-top: -1px;
+    }
+    .install-panel.active { display: block; }
+    .install-panel p {
+      font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6;
+    }
     .install-code {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2rem; margin-top: 1.5rem; position: relative;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
-      overflow-x: auto; line-height: 1.8;
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 1.5rem; position: relative;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      overflow-x: auto; white-space: pre; line-height: 1.9;
     }
     .install-code .comment { color: #555; }
     .install-code .cmd-text { color: var(--accent-2); }
     .copy-btn {
-      position: absolute; top: 1rem; right: 1rem;
+      position: absolute; top: 0.75rem; right: 0.75rem;
       background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-      color: var(--text-secondary); padding: 0.4rem 0.8rem; border-radius: 6px;
-      font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
+      color: var(--text-secondary); padding: 0.35rem 0.75rem; border-radius: 6px;
+      font-size: 0.7rem; cursor: pointer; transition: all 0.2s;
       font-family: 'Inter', sans-serif;
     }
     .copy-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
@@ -378,13 +405,13 @@
     <div class="section-desc">Every stage of development has a dedicated workflow with its own expert persona.</div>
     <div class="flow-visual">
       <div class="flow-code"><span class="comment"># New Project</span>
-<span class="cmd">/init</span> <span class="arrow">&rarr;</span> <span class="cmd">/brainstorm</span> <span class="arrow">&rarr;</span> <span class="cmd">/plan</span> <span class="arrow">&rarr;</span> <span class="cmd">/design</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span>
+<span class="cmd">/init</span> <span class="arrow">&rarr;</span> <span class="cmd">/brainstorm</span> <span class="arrow">&rarr;</span> <span class="cmd">/plan</span> <span class="arrow">&rarr;</span> <span class="cmd">/design</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span>
 
 <span class="comment"># Daily Work</span>
-<span class="cmd">/recap</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/run</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/save-brain</span>
+<span class="cmd">/recap</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/run</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/save-brain</span>
 
 <span class="comment"># Bug Fixing</span>
-<span class="cmd">/debug</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/rollback</span> <span class="comment">(if needed)</span>
+<span class="cmd">/debug</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/rollback</span> <span class="comment">(if needed)</span>
 
 <span class="comment"># Pre-Release</span>
 <span class="cmd">/audit</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span></div>
@@ -556,24 +583,49 @@
   <div class="container fade-in">
     <div class="section-label">Get Started</div>
     <div class="section-title">Installation</div>
-    <div class="section-desc">Copy to your Antigravity directory and start using immediately.</div>
-    <div class="install-code">
-      <button class="copy-btn" onclick="copyInstall()">Copy</button>
-<span class="comment"># Clone the repo</span>
+    <div class="section-desc">Choose Global (all projects) or Per-Project setup.</div>
+
+    <div class="install-tabs">
+      <div class="install-tab active" onclick="switchTab('global')">Global Install<span class="install-tab-label">recommended</span></div>
+      <div class="install-tab" onclick="switchTab('project')">Per-Project</div>
+    </div>
+
+    <div id="tab-global" class="install-panel active">
+      <p>Install AWF globally so <strong>every project</strong> benefits from all 22 workflows and 8 skills. Workflows, skills, schemas, and templates are installed to <code style="color:var(--accent-1)">~/.gemini/antigravity/</code>.</p>
+      <div class="install-code">
+        <button class="copy-btn" onclick="copyCode('global')">Copy</button>
+<span class="comment"># Clone AWF</span>
 <span class="cmd-text">git clone https://github.com/devtdq1701/awf.git /tmp/awf-install</span>
 
-<span class="comment"># Copy to Antigravity directory</span>
+<span class="comment"># Install globally</span>
 <span class="cmd-text">mkdir -p ~/.gemini/antigravity</span>
 <span class="cmd-text">cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows</span>
-<span class="cmd-text">cp -r /tmp/awf-install/skills ~/.gemini/antigravity/skills</span>
-<span class="cmd-text">cp -r /tmp/awf-install/schemas ~/.gemini/antigravity/schemas</span>
+<span class="cmd-text">cp -r /tmp/awf-install/skills    ~/.gemini/antigravity/skills</span>
+<span class="cmd-text">cp -r /tmp/awf-install/schemas   ~/.gemini/antigravity/schemas</span>
 <span class="cmd-text">cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates</span>
 
 <span class="comment"># Clean up</span>
 <span class="cmd-text">rm -rf /tmp/awf-install</span>
+      </div>
+    </div>
 
-<span class="comment"># Start using!</span>
-<span class="cmd-text">echo "Type /help to get started"</span>
+    <div id="tab-project" class="install-panel">
+      <p>Install workflows into a <strong>single project</strong> only. Useful for team-shared repos where you want workflows versioned alongside code. Place them in your project's <code style="color:var(--accent-1)">.gemini/</code> directory.</p>
+      <div class="install-code">
+        <button class="copy-btn" onclick="copyCode('project')">Copy</button>
+<span class="comment"># Clone AWF</span>
+<span class="cmd-text">git clone https://github.com/devtdq1701/awf.git /tmp/awf-install</span>
+
+<span class="comment"># Install into current project</span>
+<span class="cmd-text">mkdir -p .gemini</span>
+<span class="cmd-text">cp -r /tmp/awf-install/workflows .gemini/workflows</span>
+<span class="cmd-text">cp -r /tmp/awf-install/skills    .gemini/skills</span>
+<span class="cmd-text">cp -r /tmp/awf-install/schemas   .gemini/schemas</span>
+<span class="cmd-text">cp -r /tmp/awf-install/templates .gemini/templates</span>
+
+<span class="comment"># Clean up</span>
+<span class="cmd-text">rm -rf /tmp/awf-install</span>
+      </div>
     </div>
   </div>
 </section>
@@ -601,18 +653,36 @@
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+  // Tab switching
+  function switchTab(tab) {
+    document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.install-panel').forEach(p => p.classList.remove('active'));
+    event.target.closest('.install-tab').classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+
   // Copy install script
-  function copyInstall() {
-    const code = `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
+  const installScripts = {
+    global: `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
 mkdir -p ~/.gemini/antigravity
 cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows
-cp -r /tmp/awf-install/skills ~/.gemini/antigravity/skills
-cp -r /tmp/awf-install/schemas ~/.gemini/antigravity/schemas
+cp -r /tmp/awf-install/skills    ~/.gemini/antigravity/skills
+cp -r /tmp/awf-install/schemas   ~/.gemini/antigravity/schemas
 cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates
-rm -rf /tmp/awf-install`;
+rm -rf /tmp/awf-install`,
+    project: `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
+mkdir -p .gemini
+cp -r /tmp/awf-install/workflows .gemini/workflows
+cp -r /tmp/awf-install/skills    .gemini/skills
+cp -r /tmp/awf-install/schemas   .gemini/schemas
+cp -r /tmp/awf-install/templates .gemini/templates
+rm -rf /tmp/awf-install`
+  };
 
-    navigator.clipboard.writeText(code).then(() => {
-      const btn = document.querySelector('.copy-btn');
+  function copyCode(type) {
+    navigator.clipboard.writeText(installScripts[type]).then(() => {
+      const panel = document.getElementById('tab-' + type);
+      const btn = panel.querySelector('.copy-btn');
       btn.textContent = 'Copied!';
       setTimeout(() => btn.textContent = 'Copy', 2000);
     });
