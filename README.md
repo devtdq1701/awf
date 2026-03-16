@@ -256,6 +256,7 @@ skills/my-skill/
 
 ## Credits & Inspiration
 
+- **[AWF Original](https://github.com/TUAN130294/awf)** by **[@TUAN130294](https://github.com/TUAN130294)** — Original creator of the Antigravity Workflow Framework. This repo is a fork with enhancements (Anti-Rationalization, Superpowers-inspired improvements, English translation, additional docs).
 - **[Superpowers](https://github.com/obra/superpowers)** — Anti-Rationalization patterns, Iron Law debugging, structured feedback protocols
 - **BMAD Method** — Persona-driven workflow design
 
