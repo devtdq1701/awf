@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWF — Antigravity Workflow Framework</title>
+  <meta name="description" content="Transform your AI coding assistant into a structured software development team. 22 workflows, persona-driven, anti-rationalization guards.">
+  <meta property="og:title" content="AWF — Antigravity Workflow Framework">
+  <meta property="og:description" content="Transform your AI coding assistant into a structured software development team.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtdq1701.github.io/awf/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🚀</text></svg>">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a28;
+      --bg-card-hover: #22223a;
+      --text-primary: #e8e8f0;
+      --text-secondary: #9898b0;
+      --text-muted: #6868880;
+      --accent-1: #7c5cfc;
+      --accent-2: #00d4aa;
+      --accent-3: #ff6b9d;
+      --accent-4: #ffd93d;
+      --accent-5: #4ecdc4;
+      --gradient-hero: linear-gradient(135deg, #7c5cfc 0%, #00d4aa 50%, #ff6b9d 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(0,212,170,0.05));
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(124,92,252,0.3);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-glow: 0 0 60px rgba(124,92,252,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      transition: all 0.3s;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px;
+      background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      padding: 0.5rem 1.25rem; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+      background: var(--accent-1); color: white; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124,92,252,0.4); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(124,92,252,0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(0,212,170,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 50%, rgba(255,107,157,0.04) 0%, transparent 60%);
+      animation: heroFloat 20s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(1deg); }
+      66% { transform: translate(-1%, 2%) rotate(-1deg); }
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem; border-radius: 50px;
+      background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2);
+      font-size: 0.8rem; font-weight: 500; color: var(--accent-1);
+      margin-bottom: 2rem;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; background: var(--accent-2); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -2px;
+      line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero h1 .gradient {
+      background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-secondary);
+      max-width: 600px; margin: 0 auto 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.875rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: all 0.3s; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent-1); color: white;
+      box-shadow: 0 4px 20px rgba(124,92,252,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,92,252,0.5);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.05); color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--border-hover); }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center; margin-top: 4rem;
+      padding-top: 3rem; border-top: 1px solid var(--border);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 2rem; font-weight: 800;
+      background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent-1); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 3rem;
+    }
+
+    /* ===== FLOW SECTION ===== */
+    .flow-visual {
+      background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 3rem; overflow-x: auto; margin-top: 2rem;
+    }
+    .flow-code {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-secondary);
+      white-space: pre; line-height: 2;
+    }
+    .flow-code .cmd { color: var(--accent-1); font-weight: 600; }
+    .flow-code .arrow { color: var(--accent-2); }
+    .flow-code .comment { color: #555; }
+
+    /* ===== FEATURES GRID ===== */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gradient-hero); opacity: 0; transition: opacity 0.3s;
+    }
+    .feature-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .feature-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ===== WORKFLOWS TABLE ===== */
+    .workflows-section { background: var(--bg-secondary); }
+    .workflow-group { margin-bottom: 2.5rem; }
+    .workflow-group h3 {
+      font-size: 1rem; font-weight: 700; color: var(--accent-2);
+      margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .workflow-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--bg-card); border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .workflow-table th {
+      text-align: left; padding: 1rem 1.5rem; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);
+      background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border);
+    }
+    .workflow-table td {
+      padding: 0.875rem 1.5rem; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .workflow-table tr:last-child td { border-bottom: none; }
+    .workflow-table tr:hover td { background: rgba(124,92,252,0.03); }
+    .wf-cmd {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+      color: var(--accent-1); font-size: 0.85rem;
+    }
+    .wf-persona { color: var(--accent-4); font-weight: 500; }
+
+    /* ===== ANTI-RAT SECTION ===== */
+    .anti-rat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .excuse-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 1.5rem; display: flex; gap: 1rem;
+    }
+    .excuse-icon {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .excuse-bad { background: rgba(255,107,157,0.1); }
+    .excuse-text .excuse-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      color: var(--accent-3); font-weight: 500; margin-bottom: 0.25rem;
+    }
+    .excuse-text .excuse-reality {
+      font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+    }
+
+    /* ===== ARCHITECTURE ===== */
+    .arch-box {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2.5rem; margin-top: 2rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+      white-space: pre; overflow-x: auto; line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .arch-box .tier { color: var(--accent-1); font-weight: 600; }
+    .arch-box .desc { color: var(--accent-2); }
+    .arch-box .border-char { color: #444; }
+
+    /* ===== INSTALL ===== */
+    .install-code {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem; margin-top: 1.5rem; position: relative;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+      overflow-x: auto; line-height: 1.8;
+    }
+    .install-code .comment { color: #555; }
+    .install-code .cmd-text { color: var(--accent-2); }
+    .copy-btn {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 0.4rem 0.8rem; border-radius: 6px;
+      font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 4rem 2rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--text-secondary); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent-1); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { flex-direction: column; gap: 1.5rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .anti-rat-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.25rem; }
+      .hero { padding: 5rem 1.25rem; }
+      .workflow-table { font-size: 0.8rem; }
+      .workflow-table th, .workflow-table td { padding: 0.75rem 1rem; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">AWF</a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#workflows">Workflows</a></li>
+      <li><a href="#anti-rat">Anti-Rationalization</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#install">Install</a></li>
+    </ul>
+    <a href="https://github.com/devtdq1701/awf" class="nav-cta" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span>v4.0+ &mdash; Open Source</span>
+    </div>
+    <h1>
+      Transform AI into a<br>
+      <span class="gradient">Development Team</span>
+    </h1>
+    <p>AWF is a prompt engineering framework that turns your AI coding assistant into specialized personas &mdash; PM, Developer, Designer, Detective &mdash; each with structured workflows and safety guardrails.</p>
+    <div class="hero-actions">
+      <a href="#install" class="btn btn-primary">Get Started</a>
+      <a href="https://github.com/devtdq1701/awf" class="btn btn-secondary" target="_blank">View on GitHub</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">22</div>
+        <div class="stat-label">Workflows</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Built-in Skills</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Personas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Shared Protocols</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="container fade-in">
+    <div class="section-label">Developer Cycle</div>
+    <div class="section-title">From Idea to Production</div>
+    <div class="section-desc">Every stage of development has a dedicated workflow with its own expert persona.</div>
+    <div class="flow-visual">
+      <div class="flow-code"><span class="comment"># New Project</span>
+<span class="cmd">/init</span> <span class="arrow">&rarr;</span> <span class="cmd">/brainstorm</span> <span class="arrow">&rarr;</span> <span class="cmd">/plan</span> <span class="arrow">&rarr;</span> <span class="cmd">/design</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span>
+
+<span class="comment"># Daily Work</span>
+<span class="cmd">/recap</span> <span class="arrow">&rarr;</span> <span class="cmd">/code</span> <span class="arrow">&rarr;</span> <span class="cmd">/run</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/save-brain</span>
+
+<span class="comment"># Bug Fixing</span>
+<span class="cmd">/debug</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/rollback</span> <span class="comment">(if needed)</span>
+
+<span class="comment"># Pre-Release</span>
+<span class="cmd">/audit</span> <span class="arrow">&rarr;</span> <span class="cmd">/code-review</span> <span class="arrow">&rarr;</span> <span class="cmd">/test</span> <span class="arrow">&rarr;</span> <span class="cmd">/deploy</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container fade-in">
+    <div class="section-label">Key Features</div>
+    <div class="section-title">What Makes AWF Different</div>
+    <div class="section-desc">Not just prompts &mdash; a complete engineering system with process enforcement.</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(124,92,252,0.1);">&#x1F3AD;</div>
+        <h3>Persona System</h3>
+        <p>Each workflow has a named expert: PM Ha plans features, Detective Long debugs methodically, Security Eng Khang audits thoroughly. Consistent expertise across sessions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(0,212,170,0.1);">&#x1F6E1;</div>
+        <h3>Anti-Rationalization</h3>
+        <p>Tables of common AI excuses that are explicitly blocked. "Just a small change, skip tests" &rarr; BLOCKED. Applied to 7 workflows.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(255,107,157,0.1);">&#x1F465;</div>
+        <h3>Non-Tech Mode</h3>
+        <p>Every workflow supports 3 levels: Newbie (plain language, 1 question per turn), Basic, and Technical. Error messages auto-translated to human language.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(255,217,61,0.1);">&#x1F9E0;</div>
+        <h3>Context Management</h3>
+        <p>Never lose context between sessions. Lazy Checkpoint (~20 tokens/task), Proactive Handover when context is 80% full, MCP Memory integration.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(78,205,196,0.1);">&#x1F50D;</div>
+        <h3>Search-First Coding</h3>
+        <p>Before writing ANY new code, mandatory search for existing solutions. Research &rarr; Reuse &rarr; Build. Prevents reinventing the wheel.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(124,92,252,0.1);">&#x2699;</div>
+        <h3>Shared Protocols</h3>
+        <p>5 cross-cutting protocols: context-retrieval, iterative-retrieval, resilience (auto-retry), token-discipline, GitHub CLI mapping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows" class="workflows-section">
+  <div class="container fade-in">
+    <div class="section-label">Complete Coverage</div>
+    <div class="section-title">22 Workflows</div>
+    <div class="section-desc">Every stage of software development covered with structured processes.</div>
+
+    <div class="workflow-group">
+      <h3>Development Lifecycle</h3>
+      <table class="workflow-table">
+        <thead><tr><th>Command</th><th>Persona</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><span class="wf-cmd">/init</span></td><td><span class="wf-persona">Initializer</span></td><td>Capture idea, create workspace</td></tr>
+          <tr><td><span class="wf-cmd">/brainstorm</span></td><td><span class="wf-persona">Research Analyst</span></td><td>Explore &amp; validate ideas, create BRIEF.md</td></tr>
+          <tr><td><span class="wf-cmd">/plan</span></td><td><span class="wf-persona">PM (10yr exp)</span></td><td>Features, phases, risk assessment</td></tr>
+          <tr><td><span class="wf-cmd">/design</span></td><td><span class="wf-persona">Architect (15yr)</span></td><td>DB schema, API design, acceptance criteria</td></tr>
+          <tr><td><span class="wf-cmd">/visualize</span></td><td><span class="wf-persona">UX Designer</span></td><td>UI mockup generation</td></tr>
+          <tr><td><span class="wf-cmd">/code</span></td><td><span class="wf-persona">Senior Dev (12yr)</span></td><td>Search-First implementation + Phase Gates</td></tr>
+          <tr><td><span class="wf-cmd">/test</span></td><td><span class="wf-persona">QA Engineer</span></td><td>Test strategy, flaky detection, coverage</td></tr>
+          <tr><td><span class="wf-cmd">/debug</span></td><td><span class="wf-persona">Detective (8yr)</span></td><td>Root cause with Iron Law enforcement</td></tr>
+          <tr><td><span class="wf-cmd">/code-review</span></td><td><span class="wf-persona">Reviewer</span></td><td>Pre-commit gate, security checklist</td></tr>
+          <tr><td><span class="wf-cmd">/refactor</span></td><td><span class="wf-persona">Code Gardener</span></td><td>Readability cleanup, safety tiers</td></tr>
+          <tr><td><span class="wf-cmd">/audit</span></td><td><span class="wf-persona">Security Eng (10yr)</span></td><td>Full checkup, A-F grading system</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="workflow-group">
+      <h3>Operations &amp; Utilities</h3>
+      <table class="workflow-table">
+        <thead><tr><th>Command</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><span class="wf-cmd">/run</span></td><td>Auto-detect build system &amp; launch app</td></tr>
+          <tr><td><span class="wf-cmd">/deploy</span></td><td>Full production: SEO, analytics, legal, backup, monitoring</td></tr>
+          <tr><td><span class="wf-cmd">/rollback</span></td><td>Emergency recovery via git</td></tr>
+          <tr><td><span class="wf-cmd">/recap</span></td><td>Context recovery from .brain/ files</td></tr>
+          <tr><td><span class="wf-cmd">/save-brain</span></td><td>Persist knowledge for next session</td></tr>
+          <tr><td><span class="wf-cmd">/help</span></td><td>Context-aware help system</td></tr>
+          <tr><td><span class="wf-cmd">/next</span></td><td>AI suggests next action</td></tr>
+          <tr><td><span class="wf-cmd">/customize</span></td><td>Preferences (tech level, tone, autonomy)</td></tr>
+          <tr><td><span class="wf-cmd">/design-system</span></td><td>Design DNA + UI component library</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ANTI-RATIONALIZATION -->
+<section id="anti-rat">
+  <div class="container fade-in">
+    <div class="section-label">Process Enforcement</div>
+    <div class="section-title">Anti-Rationalization</div>
+    <div class="section-desc">Inspired by <a href="https://github.com/obra/superpowers" target="_blank" style="color: var(--accent-1);">Superpowers</a>. Common AI excuses are explicitly blocked across 7 workflows.</div>
+    <div class="anti-rat-grid">
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"I already know how to build this"</div>
+          <div class="excuse-reality">Search anyway. Existing code, libraries, or patterns save hours of work.</div>
+        </div>
+      </div>
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"Just a small change, no test needed"</div>
+          <div class="excuse-reality">Small changes cause the worst bugs. Run the test.</div>
+        </div>
+      </div>
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"Fix this bug while refactoring"</div>
+          <div class="excuse-reality">NEVER mix refactoring and bug fixing. Separate commits, separate concerns.</div>
+        </div>
+      </div>
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"Simple project, skip Risk Assessment"</div>
+          <div class="excuse-reality">Simple projects fail for simple reasons. Risk Assessment takes 2 minutes.</div>
+        </div>
+      </div>
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"Flaky test, just re-run"</div>
+          <div class="excuse-reality">Flaky tests hide real bugs. Quarantine and investigate.</div>
+        </div>
+      </div>
+      <div class="excuse-card">
+        <div class="excuse-icon excuse-bad">&#x274C;</div>
+        <div class="excuse-text">
+          <div class="excuse-label">"The fix is obvious, skip root cause"</div>
+          <div class="excuse-reality">Iron Law: No fix without confirmed root cause. Obvious fixes create new bugs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="workflows-section">
+  <div class="container fade-in">
+    <div class="section-label">Under the Hood</div>
+    <div class="section-title">3-Tier Architecture</div>
+    <div class="section-desc">Agent, Workflow, and Skill layers work together seamlessly.</div>
+    <div class="arch-box"><span class="border-char">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span>
+<span class="border-char">&#x2502;</span>  <span class="tier">Tier 1: Agent Layer</span>          <span class="desc">&larr; GEMINI.md (global rules)</span>  <span class="border-char">&#x2502;</span>
+<span class="border-char">&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</span>
+<span class="border-char">&#x2502;</span>  <span class="tier">Tier 2: Workflow Layer</span>        <span class="desc">&larr; /plan, /code, /debug...</span>  <span class="border-char">&#x2502;</span>
+<span class="border-char">&#x2502;</span>  <span class="tier">  &bull; Shared Protocols</span>         <span class="desc">&larr; resilience, tokens</span>      <span class="border-char">&#x2502;</span>
+<span class="border-char">&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</span>
+<span class="border-char">&#x2502;</span>  <span class="tier">Tier 3: Skill Layer</span>          <span class="desc">&larr; awf-* (auto-activated)</span>  <span class="border-char">&#x2502;</span>
+<span class="border-char">&#x2502;</span>  <span class="tier">  &bull; Custom Skills</span>             <span class="desc">&larr; Your own skills</span>        <span class="border-char">&#x2502;</span>
+<span class="border-char">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span></div>
+  </div>
+</section>
+
+<!-- INSTALL -->
+<section id="install">
+  <div class="container fade-in">
+    <div class="section-label">Get Started</div>
+    <div class="section-title">Installation</div>
+    <div class="section-desc">Copy to your Antigravity directory and start using immediately.</div>
+    <div class="install-code">
+      <button class="copy-btn" onclick="copyInstall()">Copy</button>
+<span class="comment"># Clone the repo</span>
+<span class="cmd-text">git clone https://github.com/devtdq1701/awf.git /tmp/awf-install</span>
+
+<span class="comment"># Copy to Antigravity directory</span>
+<span class="cmd-text">mkdir -p ~/.gemini/antigravity</span>
+<span class="cmd-text">cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows</span>
+<span class="cmd-text">cp -r /tmp/awf-install/skills ~/.gemini/antigravity/skills</span>
+<span class="cmd-text">cp -r /tmp/awf-install/schemas ~/.gemini/antigravity/schemas</span>
+<span class="cmd-text">cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates</span>
+
+<span class="comment"># Clean up</span>
+<span class="cmd-text">rm -rf /tmp/awf-install</span>
+
+<span class="comment"># Start using!</span>
+<span class="cmd-text">echo "Type /help to get started"</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    AWF is open source under MIT License.
+    Originally created by <a href="https://github.com/TUAN130294/awf" target="_blank">@TUAN130294</a>.
+    Enhanced by <a href="https://github.com/devtdq1701" target="_blank">@devtdq1701</a>.
+    Inspired by <a href="https://github.com/obra/superpowers" target="_blank">Superpowers</a>.
+  </p>
+  <p style="margin-top: 0.75rem; color: #555;">Your dreams, our engineering.</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Copy install script
+  function copyInstall() {
+    const code = `git clone https://github.com/devtdq1701/awf.git /tmp/awf-install
+mkdir -p ~/.gemini/antigravity
+cp -r /tmp/awf-install/workflows ~/.gemini/antigravity/global_workflows
+cp -r /tmp/awf-install/skills ~/.gemini/antigravity/skills
+cp -r /tmp/awf-install/schemas ~/.gemini/antigravity/schemas
+cp -r /tmp/awf-install/templates ~/.gemini/antigravity/templates
+rm -rf /tmp/awf-install`;
+
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.borderBottomColor = window.scrollY > 50 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)';
+  });
+</script>
+</body>
+</html>
