@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Personal data
+.brain/
+memory-db/
+mcp_config.json
+onboarding.json
+installation_id
+user_settings.pb
+*.lock
+*.pb
+*.bak.*
+
+# Browser
+antigravity-browser-profile/
+browser_recordings/
