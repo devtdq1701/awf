@@ -216,9 +216,10 @@
     [data-theme="light"] .flow-code .comment { color: #999; }
     [data-theme="light"] .install-code .comment { color: #999; }
     [data-theme="light"] .install-code { background: rgba(0,0,0,0.03); }
-    [data-theme="light"] .arch-box .border-char { color: #bbb; }
     [data-theme="light"] .excuse-bad { background: rgba(224,69,123,0.08); }
     [data-theme="light"] .hero::before { opacity: 0.6; }
+    [data-theme="light"] .copy-btn { background: rgba(0,0,0,0.04); }
+    [data-theme="light"] .copy-btn:hover { background: rgba(0,0,0,0.08); }
 
     /* ===== FEATURES GRID ===== */
     .features-grid {
@@ -296,18 +297,30 @@
     }
 
     /* ===== ARCHITECTURE ===== */
-    .arch-box {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2.5rem; margin-top: 2rem;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
-      white-space: pre; overflow-x: auto; line-height: 1.8;
-      color: var(--text-secondary);
+    .arch-tiers {
+      display: flex; flex-direction: column; gap: 0; margin-top: 2rem;
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
     }
-    .arch-box .tier { color: var(--accent-1); font-weight: 600; }
-    .arch-box .desc { color: var(--accent-2); }
-    .arch-box .border-char { color: #444; }
-    [data-theme="light"] .copy-btn { background: rgba(0,0,0,0.04); }
-    [data-theme="light"] .copy-btn:hover { background: rgba(0,0,0,0.08); }
+    .arch-tier {
+      padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; gap: 2rem; flex-wrap: wrap;
+      background: var(--bg-card);
+    }
+    .arch-tier:last-child { border-bottom: none; }
+    .arch-tier-name {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+      font-weight: 600; color: var(--accent-1); min-width: 220px;
+    }
+    .arch-tier-desc {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+      color: var(--accent-2);
+    }
+    .arch-tier-sub {
+      padding: 0.75rem 2rem 0.75rem 3.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; gap: 2rem; flex-wrap: wrap;
+      background: var(--bg-card);
+    }
+    .arch-tier-sub .arch-tier-name { color: var(--text-secondary); font-weight: 500; min-width: 220px; }
 
     /* ===== INSTALL ===== */
     .install-tabs {
@@ -609,15 +622,28 @@
     <div class="section-label" data-i18n="arch.label">Under the Hood</div>
     <div class="section-title" data-i18n="arch.title">3-Tier Architecture</div>
     <div class="section-desc" data-i18n="arch.desc">Agent, Workflow, and Skill layers work together seamlessly.</div>
-    <div class="arch-box"><span class="border-char">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span>
-<span class="border-char">&#x2502;</span>  <span class="tier">Tier 1: Agent Layer</span>          <span class="desc">&larr; GEMINI.md (global rules)</span>  <span class="border-char">&#x2502;</span>
-<span class="border-char">&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</span>
-<span class="border-char">&#x2502;</span>  <span class="tier">Tier 2: Workflow Layer</span>        <span class="desc">&larr; /plan, /code, /debug...</span>  <span class="border-char">&#x2502;</span>
-<span class="border-char">&#x2502;</span>  <span class="tier">  &bull; Shared Protocols</span>         <span class="desc">&larr; resilience, tokens</span>      <span class="border-char">&#x2502;</span>
-<span class="border-char">&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;</span>
-<span class="border-char">&#x2502;</span>  <span class="tier">Tier 3: Skill Layer</span>          <span class="desc">&larr; awf-* (auto-activated)</span>  <span class="border-char">&#x2502;</span>
-<span class="border-char">&#x2502;</span>  <span class="tier">  &bull; Custom Skills</span>             <span class="desc">&larr; Your own skills</span>        <span class="border-char">&#x2502;</span>
-<span class="border-char">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span></div>
+    <div class="arch-tiers">
+      <div class="arch-tier">
+        <span class="arch-tier-name" data-i18n="arch.t1">Tier 1: Agent Layer</span>
+        <span class="arch-tier-desc">&larr; GEMINI.md (global rules)</span>
+      </div>
+      <div class="arch-tier">
+        <span class="arch-tier-name" data-i18n="arch.t2">Tier 2: Workflow Layer</span>
+        <span class="arch-tier-desc">&larr; /plan, /code, /debug...</span>
+      </div>
+      <div class="arch-tier-sub">
+        <span class="arch-tier-name" data-i18n="arch.t2s">&bull; Shared Protocols</span>
+        <span class="arch-tier-desc">&larr; resilience, tokens</span>
+      </div>
+      <div class="arch-tier">
+        <span class="arch-tier-name" data-i18n="arch.t3">Tier 3: Skill Layer</span>
+        <span class="arch-tier-desc">&larr; awf-* (auto-activated)</span>
+      </div>
+      <div class="arch-tier-sub">
+        <span class="arch-tier-name" data-i18n="arch.t3s">&bull; Custom Skills</span>
+        <span class="arch-tier-desc">&larr; Your own skills</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -739,6 +765,8 @@
       'ex6.l': '"The fix is obvious, skip root cause"', 'ex6.r': 'Iron Law: No fix without confirmed root cause. Obvious fixes create new bugs.',
       'arch.label': 'Under the Hood', 'arch.title': '3-Tier Architecture',
       'arch.desc': 'Agent, Workflow, and Skill layers work together seamlessly.',
+      'arch.t1': 'Tier 1: Agent Layer', 'arch.t2': 'Tier 2: Workflow Layer',
+      'arch.t2s': '\u2022 Shared Protocols', 'arch.t3': 'Tier 3: Skill Layer', 'arch.t3s': '\u2022 Custom Skills',
       'inst.label': 'Get Started', 'inst.title': 'Installation',
       'inst.desc': 'One command. Auto-creates symlinks for <code style="color:var(--accent-2)">.agent/</code> and <code style="color:var(--accent-2)">.agents/</code> directories for multi-agent IDE compatibility.',
       'footer.text': 'AWF is open source under MIT License. Originally created by <a href="https://github.com/TUAN130294/awf" target="_blank" rel="noopener">@TUAN130294</a>. Enhanced by <a href="https://github.com/devtdq1701" target="_blank" rel="noopener">@devtdq1701</a>. Inspired by <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">Superpowers</a>.',
@@ -787,6 +815,8 @@
       'ex6.l': '"C\u00e1ch s\u1eeda r\u00f5 r\u00e0ng, b\u1ecf qua nguy\u00ean nh\u00e2n g\u1ed1c"', 'ex6.r': 'Lu\u1eadt S\u1eaft: Kh\u00f4ng s\u1eeda khi ch\u01b0a x\u00e1c \u0111\u1ecbnh nguy\u00ean nh\u00e2n g\u1ed1c. S\u1eeda v\u1ed9i t\u1ea1o bug m\u1edbi.',
       'arch.label': 'B\u00ean trong', 'arch.title': 'Ki\u1ebfn tr\u00fac 3 t\u1ea7ng',
       'arch.desc': 'Agent, Workflow v\u00e0 Skill ph\u1ed1i h\u1ee3p li\u1ec1n m\u1ea1ch.',
+      'arch.t1': 'T\u1ea7ng 1: Agent', 'arch.t2': 'T\u1ea7ng 2: Workflow',
+      'arch.t2s': '\u2022 Giao th\u1ee9c chung', 'arch.t3': 'T\u1ea7ng 3: Skill', 'arch.t3s': '\u2022 Skill t\u00f9y ch\u1ec9nh',
       'inst.label': 'B\u1eaft \u0111\u1ea7u', 'inst.title': 'C\u00e0i \u0111\u1eb7t',
       'inst.desc': 'M\u1ed9t l\u1ec7nh duy nh\u1ea5t. T\u1ef1 \u0111\u1ed9ng t\u1ea1o symlink cho <code style="color:var(--accent-2)">.agent/</code> v\u00e0 <code style="color:var(--accent-2)">.agents/</code> t\u01b0\u01a1ng th\u00edch \u0111a agent IDE.',
       'footer.text': 'AWF l\u00e0 m\u00e3 ngu\u1ed3n m\u1edf theo gi\u1ea5y ph\u00e9p MIT. T\u00e1c gi\u1ea3 g\u1ed1c <a href="https://github.com/TUAN130294/awf" target="_blank" rel="noopener">@TUAN130294</a>. N\u00e2ng c\u1ea5p b\u1edfi <a href="https://github.com/devtdq1701" target="_blank" rel="noopener">@devtdq1701</a>. L\u1ea5y c\u1ea3m h\u1ee9ng t\u1eeb <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">Superpowers</a>.',
