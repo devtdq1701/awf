@@ -6,16 +6,17 @@
 
 **Large files (> 200 lines) for understanding:**
 
-```bash
-# Prefer minified read
-run_command("python ~/.gemini/antigravity/skills/context-minify/scripts/minify.py <file>")
-# Exceptions: file needs editing (exact line numbers), config files (already compact), files < 50 lines
+```
+# Use vfs to find definitions, then read targeted ranges
+vfs_search(pattern, [path])       → get file + line number
+view_file(file, start, end)       → read only the relevant range
+vfs_extract([path])               → get full API surface (signatures only)
 ```
 
-**Multiple files:** scan stats first, then read only what's needed:
+**Multiple files:** use vfs_extract to scan API surface first, then read only what's needed:
 
-```bash
-run_command("python ~/.gemini/antigravity/skills/context-minify/scripts/minify.py src/ --ext py --stats-only")
+```
+vfs_extract(["src/"])             → compact signatures of all exports
 ```
 
 ## Output Rules
